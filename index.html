@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>For Mayrie 🌸</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --warm: #D85A30;
+      --warm-light: #FAECE7;
+      --warm-mid: #F0997B;
+      --warm-dark: #993C1D;
+      --teal: #1D9E75;
+      --teal-light: #E1F5EE;
+      --rose: #E8697A;
+      --rose-light: #FCF0F1;
+      --cream: #FDF8F5;
+      --ink: #2A1810;
+      --ink-soft: #6B4C40;
+      --ink-muted: #A07B6E;
+      --border: rgba(216, 90, 48, 0.15);
+    }
+
+    html, body {
+      min-height: 100vh;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+    }
+
+    body {
+      background-image:
+        radial-gradient(ellipse 600px 400px at 10% 0%, rgba(216,90,48,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 500px 350px at 90% 100%, rgba(232,105,122,0.07) 0%, transparent 70%);
+    }
+
+    .app {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    /* HEADER */
+    .header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .header-petal {
+      font-size: 36px;
+      margin-bottom: 0.5rem;
+      animation: sway 4s ease-in-out infinite;
+    }
+    @keyframes sway {
+      0%, 100% { transform: rotate(-5deg); }
+      50% { transform: rotate(5deg); }
+    }
+    .header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+    .header h1 em {
+      font-style: italic;
+      color: var(--warm);
+    }
+    .header p {
+      font-size: 13px;
+      color: var(--ink-muted);
+      font-weight: 300;
+    }
+
+    /* TABS */
+    .tabs {
+      display: flex;
+      background: white;
+      border-radius: 16px;
+      padding: 5px;
+      gap: 4px;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 12px rgba(216,90,48,0.06);
+    }
+    .tab {
+      flex: 1;
+      padding: 10px 8px;
+      border: none;
+      background: transparent;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink-muted);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-family: 'DM Sans', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+    .tab span.icon { font-size: 18px; }
+    .tab:hover { color: var(--warm); }
+    .tab.active {
+      background: var(--warm-light);
+      color: var(--warm-dark);
+    }
+
+    /* SECTIONS */
+    .section { display: none; animation: fadeUp 0.3s ease; }
+    .section.active { display: block; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* CARD BASE */
+    .card {
+      background: white;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 16px rgba(216,90,48,0.05);
+    }
+
+    /* ===== HEAT TIMER ===== */
+    .phase-pill {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 4px 14px;
+      border-radius: 99px;
+      margin-bottom: 1.25rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .phase-pill.heat { background: var(--warm-light); color: var(--warm-dark); }
+    .phase-pill.rest { background: var(--teal-light); color: var(--teal); }
+
+    .ring-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    .ring-wrap {
+      position: relative;
+      width: 180px;
+      height: 180px;
+    }
+    .ring-svg {
+      transform: rotate(-90deg);
+      width: 180px;
+      height: 180px;
+    }
+    .ring-track {
+      fill: none;
+      stroke: #F5EAE6;
+      stroke-width: 12;
+    }
+    .ring-fill {
+      fill: none;
+      stroke: var(--warm);
+      stroke-width: 12;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 1s linear, stroke 0.5s;
+    }
+    .ring-center {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+    .ring-time {
+      font-family: 'DM Serif Display', serif;
+      font-size: 36px;
+      color: var(--ink);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .ring-sublabel {
+      font-size: 11px;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .timer-controls {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+    .btn {
+      padding: 11px 26px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--ink-soft);
+      font-family: 'DM Sans', sans-serif;
+      transition: all 0.18s;
+    }
+    .btn:hover { background: var(--warm-light); color: var(--warm-dark); }
+    .btn.primary {
+      background: var(--warm);
+      color: white;
+      border-color: var(--warm);
+    }
+    .btn.primary:hover { background: var(--warm-dark); }
+
+    .heat-note {
+      background: var(--warm-light);
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 13px;
+      color: var(--ink-soft);
+      line-height: 1.6;
+      border-left: 3px solid var(--warm-mid);
+    }
+    .heat-note strong { color: var(--warm-dark); font-weight: 500; }
+
+    .cycle-info {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 1.25rem;
+    }
+    .cycle-badge {
+      flex: 1;
+      background: var(--warm-light);
+      border-radius: 12px;
+      padding: 10px 12px;
+      text-align: center;
+    }
+    .cycle-badge.active-phase {
+      background: var(--warm);
+    }
+    .cycle-badge.active-phase .cb-label,
+    .cycle-badge.active-phase .cb-val { color: white; }
+    .cb-val { font-size: 16px; font-weight: 500; color: var(--warm-dark); }
+    .cb-label { font-size: 11px; color: var(--ink-muted); margin-top: 2px; }
+
+    /* ===== BREATHING ===== */
+    .breath-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0.5rem 0 1rem;
+    }
+    .orb-container {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    .orb-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1.5px solid rgba(216,90,48,0.2);
+      animation: pulse-ring 3s ease-in-out infinite;
+    }
+    .orb-ring:nth-child(1) { width: 180px; height: 180px; animation-delay: 0s; }
+    .orb-ring:nth-child(2) { width: 145px; height: 145px; animation-delay: 0.5s; }
+    @keyframes pulse-ring {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.04); }
+    }
+    .orb {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, var(--warm-mid), var(--warm-dark));
+      transition: transform 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+    }
+    .orb-inner-text {
+      font-size: 28px;
+      color: white;
+    }
+    .breath-phase-text {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      color: var(--ink);
+      margin-bottom: 4px;
+      text-align: center;
+      min-height: 30px;
+    }
+    .breath-phase-text em { font-style: italic; color: var(--warm); }
+    .breath-countdown {
+      font-size: 13px;
+      color: var(--ink-muted);
+      margin-bottom: 4px;
+      text-align: center;
+      min-height: 20px;
+    }
+    .breath-cycle-count {
+      font-size: 12px;
+      color: var(--ink-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .breath-guide {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 1.25rem;
+    }
+    .bg-step {
+      flex: 1;
+      background: #FAF6F5;
+      border-radius: 12px;
+      padding: 10px 8px;
+      text-align: center;
+      border: 1px solid var(--border);
+    }
+    .bg-step .step-num { font-weight: 500; color: var(--warm); font-size: 15px; }
+    .bg-step .step-lbl { font-size: 10px; color: var(--ink-muted); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.04em; }
+
+    /* ===== LOVE NOTES ===== */
+    .love-header {
+      text-align: center;
+      margin-bottom: 1.25rem;
+    }
+    .love-header p {
+      font-size: 12px;
+      color: var(--ink-muted);
+      margin-top: 4px;
+    }
+
+    .note-card {
+      background: white;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin-bottom: 1rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 2px 16px rgba(216,90,48,0.05);
+    }
+    .note-card::before {
+      content: '\201C';
+      font-family: 'DM Serif Display', serif;
+      font-size: 120px;
+      color: var(--warm-light);
+      position: absolute;
+      top: -20px;
+      left: 10px;
+      line-height: 1;
+      pointer-events: none;
+    }
+    .note-text {
+      font-family: 'DM Serif Display', serif;
+      font-size: 18px;
+      font-style: italic;
+      color: var(--ink);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+    .note-from {
+      font-size: 12px;
+      color: var(--warm);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+
+    .note-dots {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #ECCBC0;
+      transition: background 0.25s, transform 0.25s;
+    }
+    .dot.active { background: var(--warm); transform: scale(1.3); }
+
+    .note-nav {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+    .nav-btn {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: white;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.18s;
+      color: var(--ink-soft);
+    }
+    .nav-btn:hover { background: var(--warm-light); color: var(--warm-dark); }
+
+    .love-footer {
+      margin-top: 1rem;
+      background: linear-gradient(135deg, var(--warm-light), #FCF0F1);
+      border-radius: 16px;
+      padding: 14px 16px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--ink-soft);
+      border: 1px solid var(--border);
+    }
+
+    @media (max-width: 420px) {
+      .app { padding: 1.5rem 1rem 3rem; }
+      .header h1 { font-size: 24px; }
+      .ring-time { font-size: 30px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="app">
+
+  <div class="header">
+    <div class="header-petal">🌸</div>
+    <h1>Hang in there, <em>Mayrie</em></h1>
+    <p>You're stronger than any cramp. I've got you, babe.</p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('heat', this)">
+      <span class="icon">🔥</span>
+      <span>Heat belt</span>
+    </button>
+    <button class="tab" onclick="switchTab('breath', this)">
+      <span class="icon">🌬️</span>
+      <span>Breathe</span>
+    </button>
+    <button class="tab" onclick="switchTab('love', this)">
+      <span class="icon">💛</span>
+      <span>From your Adewunmi</span>
+    </button>
+  </div>
+
+  <!-- ===== HEAT BELT ===== -->
+  <div class="section active" id="sec-heat">
+    <div class="card" style="text-align:center;">
+      <div>
+        <span class="phase-pill heat" id="phase-pill">🔥 Heat session</span>
+      </div>
+
+      <div class="cycle-info" style="margin-bottom:1rem;">
+        <div class="cycle-badge active-phase" id="cb-heat">
+          <div class="cb-val">20 min</div>
+          <div class="cb-label">Heat on</div>
+        </div>
+        <div class="cycle-badge" id="cb-rest">
+          <div class="cb-val">10 min</div>
+          <div class="cb-label">Rest</div>
+        </div>
+      </div>
+
+      <div class="ring-container">
+        <div class="ring-wrap">
+          <svg class="ring-svg" viewBox="0 0 180 180">
+            <circle class="ring-track" cx="90" cy="90" r="78"/>
+            <circle class="ring-fill" id="ring" cx="90" cy="90" r="78"
+              stroke-dasharray="490"
+              stroke-dashoffset="0"/>
+          </svg>
+          <div class="ring-center">
+            <div class="ring-time" id="timer-display">20:00</div>
+            <div class="ring-sublabel" id="ring-sub">on belt</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timer-controls">
+        <button class="btn" onclick="resetTimer()">↺ Reset</button>
+        <button class="btn primary" id="start-btn" onclick="toggleTimer()">▶ Start</button>
+      </div>
+
+      <div class="heat-note" id="heat-note">
+        <strong>Tip:</strong> Place the belt on your lower belly, just below the navel, Mayrie. Keep a thin cloth between the belt and your skin so it stays comfy.
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== BREATHING ===== -->
+  <div class="section" id="sec-breath">
+    <div class="card">
+      <div class="breath-center">
+        <div class="orb-container">
+          <div class="orb-ring"></div>
+          <div class="orb-ring"></div>
+          <div class="orb" id="orb">
+            <div class="orb-inner-text">🌸</div>
+          </div>
+        </div>
+
+        <div class="breath-phase-text" id="breath-text">Ready, <em>babe?</em></div>
+        <div class="breath-countdown" id="breath-countdown"></div>
+        <div class="breath-cycle-count" id="breath-cycles">Breathe with me ✨</div>
+
+        <div class="breath-guide">
+          <div class="bg-step">
+            <div class="step-num">4s</div>
+            <div class="step-lbl">Breathe in</div>
+          </div>
+          <div class="bg-step">
+            <div class="step-num">7s</div>
+            <div class="step-lbl">Hold</div>
+          </div>
+          <div class="bg-step">
+            <div class="step-num">8s</div>
+            <div class="step-lbl">Breathe out</div>
+          </div>
+        </div>
+
+        <button class="btn primary" id="breath-btn" onclick="toggleBreath()">▶ Begin</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== LOVE NOTES ===== -->
+  <div class="section" id="sec-love">
+    <div class="love-header">
+      <div style="font-size:24px; margin-bottom:4px;">💛</div>
+      <p>little notes, just for you, my love</p>
+    </div>
+
+    <div class="note-card">
+      <div class="note-text" id="note-text">
+        You're so incredibly tough, Mayrie. I see you pushing through this and honestly, you make me so proud.
+      </div>
+      <div class="note-from">— your boo, always 🧡</div>
+    </div>
+
+    <div class="note-dots" id="note-dots"></div>
+    <div class="note-nav">
+      <button class="nav-btn" onclick="prevNote()">←</button>
+      <button class="nav-btn" onclick="nextNote()">→</button>
+    </div>
+
+    <div class="love-footer">
+      Rest, sweetheart. Drink something warm. I'll be here. 🌸
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // ===== TAB SWITCHING =====
+  function switchTab(name, btn) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('sec-' + name).classList.add('active');
+  }
+
+  // ===== HEAT TIMER =====
+  const HEAT = 20 * 60;
+  const REST = 10 * 60;
+  const CIRCUMFERENCE = 2 * Math.PI * 78;
+
+  let heatRunning = false;
+  let heatPhase = 'heat';
+  let heatRemaining = HEAT;
+  let heatInterval = null;
+
+  const heatTips = {
+    heat: 'Place the belt on your lower belly, just below the navel, Mayrie. Keep a thin cloth between the belt and your skin so it stays comfy.',
+    rest: 'Time to give your skin a break, babe. Sip some warm ginger tea or just lie down. You\'re doing amazing.',
+  };
+
+  function fmt(s) {
+    return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
+  }
+
+  function updateHeat() {
+    const total = heatPhase === 'heat' ? HEAT : REST;
+    const pct = heatRemaining / total;
+    const offset = CIRCUMFERENCE * (1 - pct);
+
+    document.getElementById('timer-display').textContent = fmt(heatRemaining);
+    document.getElementById('ring').style.strokeDashoffset = offset;
+    document.getElementById('ring').style.stroke = heatPhase === 'heat' ? '#D85A30' : '#1D9E75';
+    document.getElementById('ring-sub').textContent = heatPhase === 'heat' ? 'on belt' : 'rest';
+    document.getElementById('heat-note').innerHTML = '<strong>Tip:</strong> ' + heatTips[heatPhase];
+
+    const pill = document.getElementById('phase-pill');
+    pill.textContent = heatPhase === 'heat' ? '🔥 Heat session' : '🌿 Rest time';
+    pill.className = 'phase-pill ' + heatPhase;
+
+    document.getElementById('cb-heat').className = 'cycle-badge' + (heatPhase === 'heat' ? ' active-phase' : '');
+    document.getElementById('cb-rest').className = 'cycle-badge' + (heatPhase === 'rest' ? ' active-phase' : '');
+  }
+
+  function toggleTimer() {
+    if (!heatRunning) {
+      heatRunning = true;
+      document.getElementById('start-btn').textContent = '⏸ Pause';
+      heatInterval = setInterval(() => {
+        heatRemaining--;
+        if (heatRemaining <= 0) {
+          heatPhase = heatPhase === 'heat' ? 'rest' : 'heat';
+          heatRemaining = heatPhase === 'heat' ? HEAT : REST;
+        }
+        updateHeat();
+      }, 1000);
+    } else {
+      heatRunning = false;
+      clearInterval(heatInterval);
+      document.getElementById('start-btn').textContent = '▶ Resume';
+    }
+  }
+
+  function resetTimer() {
+    clearInterval(heatInterval);
+    heatRunning = false;
+    heatPhase = 'heat';
+    heatRemaining = HEAT;
+    document.getElementById('start-btn').textContent = '▶ Start';
+    updateHeat();
+  }
+
+  updateHeat();
+
+  // ===== BREATHING (4-7-8) =====
+  let breathRunning = false;
+  let breathTimeout = null;
+  let breathPhaseIdx = 0;
+  let breathSec = 0;
+  let breathSecInterval = null;
+  let breathCycles = 0;
+
+  const breathPhases = [
+    { label: 'Breathe in…', seconds: 4, scale: 1.35 },
+    { label: 'Hold it…',    seconds: 7, scale: 1.35 },
+    { label: 'Let it go…',  seconds: 8, scale: 0.85 },
+  ];
+
+  function runBreath(idx) {
+    if (!breathRunning) return;
+    breathPhaseIdx = idx;
+    const phase = breathPhases[idx];
+
+    document.getElementById('breath-text').innerHTML = phase.label === 'Breathe in…'
+      ? 'Breathe in, <em>sweetheart…</em>'
+      : phase.label === 'Hold it…'
+      ? '<em>Hold it…</em>'
+      : 'Let it all go…';
+
+    document.getElementById('orb').style.transform = `scale(${phase.scale})`;
+
+    if (idx === 0 && breathCycles > 0) {
+      document.getElementById('breath-cycles').textContent = `Cycle ${breathCycles} done — you're doing great, Mayrie 🌸`;
+    }
+
+    breathSec = phase.seconds;
+    clearInterval(breathSecInterval);
+    document.getElementById('breath-countdown').textContent = breathSec + 's';
+
+    breathSecInterval = setInterval(() => {
+      breathSec--;
+      document.getElementById('breath-countdown').textContent = breathSec > 0 ? breathSec + 's' : '';
+      if (breathSec <= 0) clearInterval(breathSecInterval);
+    }, 1000);
+
+    breathTimeout = setTimeout(() => {
+      const next = (idx + 1) % breathPhases.length;
+      if (next === 0) breathCycles++;
+      runBreath(next);
+    }, phase.seconds * 1000);
+  }
+
+  function toggleBreath() {
+    if (!breathRunning) {
+      breathRunning = true;
+      document.getElementById('breath-btn').textContent = '⏸ Pause';
+      runBreath(0);
+    } else {
+      breathRunning = false;
+      clearTimeout(breathTimeout);
+      clearInterval(breathSecInterval);
+      document.getElementById('breath-btn').textContent = '▶ Resume';
+      document.getElementById('breath-text').textContent = 'Paused — take your time';
+      document.getElementById('breath-countdown').textContent = '';
+      document.getElementById('orb').style.transform = 'scale(1)';
+    }
+  }
+
+  // ===== LOVE NOTES =====
+  const notes = [
+    "You're so incredibly tough, Mayrie. I see you pushing through this and honestly, you make me so proud.",
+    "I wish I could take all this pain away, my love. Just know I'm thinking about you every single second.",
+    "Rest as much as you need to, babe. You don't have to be strong right now — I've got you covered.",
+    "You're the toughest person I know, sweetheart. This will pass, and I'll be right here when it does.",
+    "I love you more than words, Mayrie. Even on the hard days — especially on the hard days like this.",
+    "You don't have to be okay right now. Just breathe, my love. I'm not going anywhere.",
+    "Every time I see you push through something like this, I fall in love with you all over again, babe.",
+    "Soon as you're feeling better, I'm giving you the biggest hug. Until then — rest, my sweetheart. 🧡",
+  ];
+
+  let noteIdx = 0;
+
+  function buildDots() {
+    const wrap = document.getElementById('note-dots');
+    wrap.innerHTML = '';
+    notes.forEach((_, i) => {
+      const d = document.createElement('div');
+      d.className = 'dot' + (i === noteIdx ? ' active' : '');
+      d.onclick = () => showNote(i);
+      d.style.cursor = 'pointer';
+      wrap.appendChild(d);
+    });
+  }
+
+  function showNote(idx) {
+    noteIdx = (idx + notes.length) % notes.length;
+    document.getElementById('note-text').textContent = notes[noteIdx];
+    buildDots();
+  }
+
+  function nextNote() { showNote(noteIdx + 1); }
+  function prevNote() { showNote(noteIdx - 1); }
+
+  buildDots();
+</script>
+</body>
+</html>

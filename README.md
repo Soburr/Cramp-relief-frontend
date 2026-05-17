@@ -32,7 +32,7 @@ Just the web platform:
 
 - Vanilla HTML, CSS, and JavaScript
 - [DM Serif Display + DM Sans](https://fonts.google.com/) via Google Fonts
-- Deployed on [Netlify](https://netlify.com) — drag, drop, done
+- Deployed on [Netlify](https://netlify.com) 
 
 ---
 

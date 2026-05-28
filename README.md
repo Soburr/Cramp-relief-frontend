@@ -1,6 +1,6 @@
 # 🌸 For Mayrie
 
-A small personal web app built for my girlfriend to help her through period pain. One `index.html` file, plain HTML/CSS/JS — nothing to install, nothing to build.
+A small personal web app built for my girlfriend to help her through period pain. One `index.html` file, plain HTML/CSS/JS — nothing to install, nothing to build!.
 
 **Live at → [for-mayrie.netlify.app](https://for-mayrie.netlify.app)**
 
